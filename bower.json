@@ -1,6 +1,6 @@
 {
   "name": "a",
-  "homepage": "https://github.com/chen00jian/a",
+  "homepage": "index.html",
   "authors": [
     "chen00jian <chen00jian@sina.com>"
   ],
@@ -13,5 +13,10 @@
     "bower_components",
     "test",
     "tests"
-  ]
+  ],
+  "devDependencies": {
+    "simple-form": "chenjian#*",
+    "a": "chen00jian#*",
+    "jquery": "^3.2.1"
+  }
 }
