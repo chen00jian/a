@@ -13,10 +13,5 @@
     "bower_components",
     "test",
     "tests"
-  ],
-  "devDependencies": {
-    "simple-form": "chenjian#*",
-    "a": "chen00jian#*",
-    "jquery": "^3.2.1"
-  }
+  ]
 }
