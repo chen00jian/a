@@ -1,0 +1,17 @@
+{
+  "name": "a",
+  "homepage": "https://github.com/chen00jian/a",
+  "authors": [
+    "chen00jian <chen00jian@sina.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ]
+}
