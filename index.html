@@ -3,23 +3,87 @@
 <head>
 <meta charset="utf-8">
 <title>无标题文档</title>
+<script src="rem.js"></script>
 <style>
-
+*{margin:0;padding:0;list-style:none;}
+#div1{width:200px; height:200px; background:red;}
 </style>
 <script>
-
+window.onload =  function(){ console.log(1);
+	var dpr = 0;
+    var scale = 0;
+	
+	console.log(!dpr ,!scale);
+	
+	var oDiv = document.getElementById("div1");
+	var oHtml = document.documentElement;
+	console.log(document.documentElement.clientWidth);
+	console.log(oHtml.getBoundingClientRect().width);
+	console.log(window.innerWidth);
+	console.log(window.outerWidth);
+	
+	var oView = document.querySelector("meta[name=viewport]");
+	
+	if(oView){
+		var match = oView.getAttribute("content").match(/initial\-scale=([\d\.]+)/);
+		if (match) {
+			scale = parseFloat(match[1]);
+			dpr = parseInt(1/scale);
+			
+			console.log("scale=",scale,"dpr=",dpr,!dpr);
+		}
+	
+	}
+	
+	if(!dpr && !scale){
+		var isAndroid = window.navigator.appVersion.match(/android/gi);
+		var isIPhone = window.navigator.appVersion.match(/iphone/gi);
+		var devicePixelRatio = window.devicePixelRatio;
+		
+		console.log("isAndroid=",isAndroid,"isIPhone=",isIPhone,"devicePixelRatio=",devicePixelRatio);
+		
+		if (isIPhone) {
+			// iOS下，对于2和3的屏，用2倍的方案，其余的用1倍方案
+			if(devicePixelRatio >= 3 && (!dpr || dpr >= 3)){
+				dpr = 3;
+			} else if(devicePixelRatio >= 2 && (!dpr || dpr >= 2)){
+				dpr = 2;
+			} else {
+				dpr = 1;
+			}
+		} else {
+			// 其他设备下，仍旧使用1倍的方案
+			dpr = 1;
+		}
+		scale = 1/dpr;
+	}
+	
+	console.log("scale=",scale,"dpr=",dpr);
+	
+	console.log("data-dpr" in oHtml);
+	oHtml.setAttribute("data-dpr", dpr);
+	
+	
+	
+	if (!oView) {
+        oView = document.createElement('meta');
+        oView.setAttribute('name', 'viewport');
+        oView.setAttribute('content', 'initial-scale=' + scale + ', maximum-scale=' + scale + ', minimum-scale=' + scale + ', user-scalable=no');
+        if (oHtml.firstElementChild) {
+            oHtml.firstElementChild.appendChild(oView);
+        } else {
+            var oDiv = document.createElement('div');
+            oDiv.appendChild(oView);
+            document.write(oDiv.innerHTML);
+        }
+    }
+	
+};
 </script>
 </head>
 
 <body>
-index  命令行git简单使用
-
-status 是指本地的状态，显示的是本地工作空间与本地仓库之间的差异
-
-你新建的文件、修改但没提交(commit)的文件，都显示在这里，提交之后就是空的了
-
-pull/push 是本地仓库与远端仓库的同步操作，up-to-date 说明本地仓库与远端仓库是同步的
-
-尝试一下
+<div id="div1"></div>
 </body>
 </html>
+
