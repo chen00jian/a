@@ -1,0 +1,89 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<title>无标题文档</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<style>
+#div1{height:200px; background:#ccc;}
+</style>
+<script>
+
+var arr = [];
+var browser = {
+	language: (navigator.browserLanguage || navigator.language).toLowerCase(),
+   	versions: function (){
+       var u = navigator.userAgent, app = navigator.appVersion;
+       return {         //移动终端浏览器版本信息
+           trident: u.indexOf('Trident') > -1, //IE内核
+           presto: u.indexOf('Presto') > -1, //opera内核
+           webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+           gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+           mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+           ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+           android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或uc浏览器
+           iPhone: u.indexOf('iPhone') > -1, //是否为iPhone或者QQHD浏览器
+           iPad: u.indexOf('iPad') > -1, //是否iPad
+           webApp: u.indexOf('Safari') == -1 //是否web应该程序，没有头部与底部
+       };
+   }()
+}
+//三、判断横屏还是竖屏
+function orient(){
+	var orientation = "";
+    if (window.orientation == 0 || window.orientation == 180){
+        orientation = 'portrait';//竖屏
+    }
+    else if (window.orientation == 90 || window.orientation == -90){
+        orientation = 'landscape';//横屏
+    }
+	console.log(window.orientation,orientation);
+	arr.push(window.orientation,orientation);
+}
+
+window.addEventListener("resize",function(){
+	
+},false);
+window.onload = function(){
+	var oDiv = document.getElementById("div1");
+	
+
+	orient();	
+
+//七、判断APP浏览器（微信、微博、QQ、android、ios）
+var ua = navigator.userAgent.toLowerCase();//获取判断用的对象
+if(ua.match(/MicroMessenger/i) == "micromessenger") {
+    //在微信中打开
+	
+}
+if(ua.match(/WeiBo/i) == "weibo") {
+    //在新浪微博客户端打开
+	arr.push("在新浪微博客户端打开");
+}
+if(ua.match(/QQ/i) == "qq") {
+    //在QQ空间打开
+	arr.push("在QQ空间打开");
+}
+if(browser.versions.ios) {
+    //是否在IOS浏览器打开
+	arr.push("在IOS浏览器打开");
+}
+if(browser.versions.android){
+    //是否在安卓浏览器打开
+	arr.push("在安卓浏览器打开");
+}
+
+oDiv.innerHTML = arr.join("--");
+ 
+};
+</script>
+</head>
+
+<body>
+<div id="div1">
+	 
+	
+	
+</div>
+</body>
+</html>
