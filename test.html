@@ -42,7 +42,8 @@ function orient(){
 }
 
 window.addEventListener("resize",function(){
-	
+	arr.push("resize");
+	orient();
 },false);
 window.onload = function(){
 	var oDiv = document.getElementById("div1");
